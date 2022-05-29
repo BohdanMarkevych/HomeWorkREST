@@ -14,7 +14,7 @@ public class Tests  {
     AuthorEntity authorEntity = new AuthorEntity();
     PropertiesReader reader = new PropertiesReader();
     Client client = new Client();
-    CustomAsserts customAsserts = new CustomAsserts();
+    TestAsserts testAsserts = new TestAsserts();
     String jsonCreatedAuthor = authorEntity.authorToJson(getCreatedAuthor());
     String jsonUpdatedAuthor = authorEntity.authorToJson(getUpdatedAuthor());
 
@@ -27,8 +27,8 @@ public class Tests  {
     public void createNewAuthor() {
         client.createRequestPost(jsonCreatedAuthor, reader.getUrlAuthorPath());
         client.createResponseAuthorEntity();
-        customAsserts.assertCode(201, client.getResponse());
-        customAsserts.assertAuthor(client.getResponseAuthor(), getCreatedAuthor());
+        testAsserts.assertCode(201, client.getResponse());
+        testAsserts.assertAuthor(client.getResponseAuthor(), getCreatedAuthor());
     }
 
     @Test(priority = 2)
@@ -43,14 +43,14 @@ public class Tests  {
     public void changeAuthor() {
         client.createRequestPut(jsonUpdatedAuthor, reader.getUrlAuthorPath());
         client.createResponseAuthorEntity();
-        customAsserts.assertCode(200, client.getResponse());
-        customAsserts.assertAuthor(client.getResponseAuthor(), getUpdatedAuthor());
+        testAsserts.assertCode(200, client.getResponse());
+        testAsserts.assertAuthor(client.getResponseAuthor(), getUpdatedAuthor());
     }
 
     @Test(priority = 4)
     public void deleteAuthorById() {
         client.createRequestDelete(reader.getUrlAuthorPathWithId());
-        customAsserts.assertCode(204, client.getResponse());
+        testAsserts.assertCode(204, client.getResponse());
     }
 
     private Author getCreatedAuthor(){
