@@ -52,6 +52,14 @@ public class Tests  {
         client.createRequestDelete(reader.getUrlAuthorPathWithId());
         testAsserts.assertCode(204, client.getResponse());
     }
+    @Test(priority = 5)
+    public void assertAuthorIsDeleted() {
+        client.createRequestDelete(reader.getUrlAuthorPathWithId());
+        testAsserts.assertCode(404, client.getResponse());
+    }
+
+
+
 
     private Author getCreatedAuthor(){
         return authorEntity.createAuthor(reader.getAuthorId(), reader.getCreatedAuthorFirstName(),
